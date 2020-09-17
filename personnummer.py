@@ -9,7 +9,7 @@ def stripCentury(number):
     if len(number) < 11:
         return number
     else:
-        return number[1:]
+        return number[2:]
 
 
 def fixFormat(original_number):
@@ -21,7 +21,6 @@ def fixFormat(original_number):
 
     dashless_number = original_number.replace("-", "")
     century_stripped_number = stripCentury(dashless_number)
-    # HACK return dashless_number
     return century_stripped_number
 
 
