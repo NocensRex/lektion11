@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+import re
+
 
 def stripCentury(number):
     """Strips the number of the century
@@ -6,11 +9,15 @@ def stripCentury(number):
     This is not included in the algorithm for calculating the
     final digit, and thus is removed by this function."""
 
+    # NOTE: Check if number starts with 19 or 20. if true check if number is 9 or mor char long
     # NOTE: Changed return number[1:] to number[2:]
-    if len(number) < 11:
-        return number
+    if number.startswith('19') or number.startswith('20'):
+        if len(number) >= 9:
+            return number[2:]
+        else:
+            return number
     else:
-        return number[2:]
+        return number
 
 
 def fixFormat(original_number):
@@ -81,10 +88,27 @@ def printControlDigitMatch(personnummer, control_digit):
 # This is good when running automated tests, which we will cover later
 
 
+# NOTE: This function checks if a string only contains numbers and -(dash)
+def special_match(strg, search=re.compile(r'[^0-9-]').search):
+    return not bool(search(strg))
+
+
 if __name__ == "__main__":
 
-    personnummer = input("Skriv in ett personnummer du vill testa eller ett ofullständigt som du vill generera: ")
-    personnummer = fixFormat(personnummer)
+    # NOTE: Make sure the length of the number is not to long or to short.
+    # NOTE: Checks if input only contains numbers and dash
+    while True:
+        personnummer = input("Skriv in ett personnummer du vill testa eller ett ofullständigt som du vill generera: ")
+        personnummer = fixFormat(personnummer)
+        if len(personnummer) < 9:
+            print("Du skrev in ett för kort nummer. Försök igen.")
+        elif len(personnummer) > 12:
+            print("Du skrev in ett för långt nummer. Försök igen.")
+        elif not special_match(personnummer):
+            print("Endast siffror och - är godkända. Försök igen.")
+        else:
+            break
+
     control_digit = calculateControlDigit(personnummer)
 
     if len(personnummer) == 10:
