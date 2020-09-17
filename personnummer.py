@@ -9,11 +9,15 @@ def stripCentury(number):
     This is not included in the algorithm for calculating the
     final digit, and thus is removed by this function."""
 
+    # NOTE: Check if number starts with 19 or 20. if true check if number is 9 or mor char long
     # NOTE: Changed return number[1:] to number[2:]
-    if len(number) < 11:
-        return number
+    if number.startswith('19') or number.startswith('20'):
+        if len(number) >= 9:
+            return number[2:]
+        else:
+            return number
     else:
-        return number[2:]
+        return number
 
 
 def fixFormat(original_number):
