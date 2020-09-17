@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 
 def stripCentury(number):
     """Strips the number of the century
@@ -83,8 +84,17 @@ def printControlDigitMatch(personnummer, control_digit):
 
 if __name__ == "__main__":
 
-    personnummer = input("Skriv in ett personnummer du vill testa eller ett ofullständigt som du vill generera: ")
-    personnummer = fixFormat(personnummer)
+    # NOTE: Make sure the length of the number is not to long or to short
+    while True:
+        personnummer = input("Skriv in ett personnummer du vill testa eller ett ofullständigt som du vill generera: ")
+        personnummer = fixFormat(personnummer)
+        if len(personnummer) < 9:
+            print("Du skrev in ett för kort nummer. Försök igen.")
+        elif len(personnummer) > 12:
+            print("Du skrev in ett för långt nummer. Försök igen.")
+        else:
+            break
+
     control_digit = calculateControlDigit(personnummer)
 
     if len(personnummer) == 10:
