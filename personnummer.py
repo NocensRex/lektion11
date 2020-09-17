@@ -50,13 +50,18 @@ def calculateControlDigit(number):
     # Enumerate makes a tuple of index and element
     for index, digit in enumerate(number_as_string):
 
+        # HACK: Added this to make sure it only takes the first 9 numbers in personnummer.
+        if index >= 9:
+            break
+
         # Make calculations possible
         current_number = int(digit)
 
         if index % 2 == 0:
             current_number = doubleAndSum(current_number)
 
-        cumulative_sum = current_number
+        # HACK: Made it so cumulative_sum also adds itself to the new variable
+        cumulative_sum = current_number + cumulative_sum
 
     # This is equivalent to taking the following multiple of ten minus the number
     control_digit = (10 - (cumulative_sum % 10)) % 10
