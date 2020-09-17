@@ -6,10 +6,11 @@ def stripCentury(number):
     This is not included in the algorithm for calculating the
     final digit, and thus is removed by this function."""
 
+    # NOTE: Changed return number[1:] to number[2:]
     if len(number) < 11:
         return number
     else:
-        return number[1:]
+        return number[2:]
 
 
 def fixFormat(original_number):
@@ -21,7 +22,6 @@ def fixFormat(original_number):
 
     dashless_number = original_number.replace("-", "")
     century_stripped_number = stripCentury(dashless_number)
-    # HACK return dashless_number
     return century_stripped_number
 
 
@@ -51,13 +51,18 @@ def calculateControlDigit(number):
     # Enumerate makes a tuple of index and element
     for index, digit in enumerate(number_as_string):
 
+        # NOTE: Added this to make sure it only takes the first 9 numbers in personnummer.
+        if index >= 9:
+            break
+
         # Make calculations possible
         current_number = int(digit)
 
         if index % 2 == 0:
             current_number = doubleAndSum(current_number)
 
-        cumulative_sum = current_number
+        # NOTE: Made it so cumulative_sum also adds itself to the new variable
+        cumulative_sum = current_number + cumulative_sum
 
     # This is equivalent to taking the following multiple of ten minus the number
     control_digit = (10 - (cumulative_sum % 10)) % 10
