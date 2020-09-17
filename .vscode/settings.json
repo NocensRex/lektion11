@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "c:\\Users\\joell\\Documents\\DevOps\\Ht20\\Lektioner\\Programmering och systemering\\Lektion 11\\env\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
