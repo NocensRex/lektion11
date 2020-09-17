@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+import re
+
 
 def stripCentury(number):
     """Strips the number of the century
@@ -82,9 +84,15 @@ def printControlDigitMatch(personnummer, control_digit):
 # This is good when running automated tests, which we will cover later
 
 
+# NOTE: This function checks if a string only contains numbers and -(dash)
+def special_match(strg, search=re.compile(r'[^0-9-]').search):
+    return not bool(search(strg))
+
+
 if __name__ == "__main__":
 
-    # NOTE: Make sure the length of the number is not to long or to short
+    # NOTE: Make sure the length of the number is not to long or to short.
+    # NOTE: Checks if input only contains numbers and dash
     while True:
         personnummer = input("Skriv in ett personnummer du vill testa eller ett ofullständigt som du vill generera: ")
         personnummer = fixFormat(personnummer)
@@ -92,6 +100,8 @@ if __name__ == "__main__":
             print("Du skrev in ett för kort nummer. Försök igen.")
         elif len(personnummer) > 12:
             print("Du skrev in ett för långt nummer. Försök igen.")
+        elif not special_match(personnummer):
+            print("Endast siffror och - är godkända. Försök igen.")
         else:
             break
 
