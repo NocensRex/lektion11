@@ -6,6 +6,7 @@ def stripCentury(number):
     This is not included in the algorithm for calculating the
     final digit, and thus is removed by this function."""
 
+    # NOTE: Changed return number[1:] to number[2:]
     if len(number) < 11:
         return number
     else:
@@ -50,7 +51,7 @@ def calculateControlDigit(number):
     # Enumerate makes a tuple of index and element
     for index, digit in enumerate(number_as_string):
 
-        # HACK: Added this to make sure it only takes the first 9 numbers in personnummer.
+        # NOTE: Added this to make sure it only takes the first 9 numbers in personnummer.
         if index >= 9:
             break
 
@@ -60,7 +61,7 @@ def calculateControlDigit(number):
         if index % 2 == 0:
             current_number = doubleAndSum(current_number)
 
-        # HACK: Made it so cumulative_sum also adds itself to the new variable
+        # NOTE: Made it so cumulative_sum also adds itself to the new variable
         cumulative_sum = current_number + cumulative_sum
 
     # This is equivalent to taking the following multiple of ten minus the number
